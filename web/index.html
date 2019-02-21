@@ -2,16 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <title>WebGL Test Page</title>
     <style>
-        html, body {
+        body {
+            color: white;
+            background-color: #000;
             margin: 0;
-            padding: 0;
             overflow: hidden;
+            text-align: center;
+        }
+
+        .title {
+            font-size: 1.5rem;
+            position: absolute;
+            width: 100%;
+            z-index: 1;
+        }
+
+        #container {
+            height: 100%;
+            position: absolute;
+            width: 100%;
         }
     </style>
 </head>
 <body>
-<script src="webgl-learn.js"></script>
+<h1 class="title">
+    WebGL Learn
+</h1>
+<div id="container"></div>
+<footer>
+    <script src="webgl-learn.js"></script>
+</footer>
 </body>
 </html>

@@ -1,24 +1,55 @@
 import {
-    BoxGeometry,
+    BoxBufferGeometry,
     Mesh,
-    MeshBasicMaterial
+    MeshStandardMaterial
 } from 'three';
 
 class Cube {
     constructor() {
-        this.geometry = new BoxGeometry(1, 1, 1);
-        this.material = new MeshBasicMaterial({
-            color: 0xff0000
-        });
+        const mesh = this.getMesh();
 
-        this.mesh = new Mesh(
-            this.geometry,
-            this.material
-        );
+        mesh.rotation.x = Math.PI / 4;
+        mesh.rotation.y = Math.PI / 4;
+    }
+
+    animate() {
+        const mesh = this.getMesh();
+
+        mesh.rotation.x += 0.001;
+        mesh.rotation.y += 0.003;
     }
 
     getMesh() {
+        if (this.mesh) {
+            return this.mesh;
+        }
+
+        this.mesh = new Mesh(
+            this.getGeometry(),
+            this.getMaterial()
+        );
+
         return this.mesh;
+    }
+
+    getGeometry() {
+        if (this.geometry) {
+            return this.geometry;
+        }
+
+        this.geometry = new BoxBufferGeometry(2, 2, 2);
+
+        return this.geometry;
+    }
+
+    getMaterial() {
+        if (this.material) {
+            return this.material;
+        }
+
+        this.material = new MeshStandardMaterial();
+
+        return this.material;
     }
 }
 

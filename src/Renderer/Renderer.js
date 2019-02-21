@@ -6,14 +6,18 @@ class Renderer {
     constructor(
         {
             width,
-            height
+            height,
+            devicePixelRatio
         }
     ) {
-        this.renderer = new WebGLRenderer();
+        this.renderer = new WebGLRenderer({
+            antialias: true
+        });
         this.renderer.setSize(
             width,
             height
         );
+        this.renderer.setPixelRatio(devicePixelRatio);
     }
 
     render(
@@ -30,6 +34,14 @@ class Renderer {
 
     getDomElement() {
         return this.renderer.domElement;
+    }
+
+    setAnimationLoop(loopFunction) {
+        this.renderer.setAnimationLoop(loopFunction);
+    }
+
+    setSize(width, height) {
+        this.renderer.setSize(width, height);
     }
 }
 

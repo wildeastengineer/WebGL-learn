@@ -24,6 +24,11 @@ class Camera {
     getThreeInstance() {
         return this.camera;
     }
+
+    setAspect(aspect) {
+        this.camera.aspect = aspect;
+        this.camera.updateProjectionMatrix();
+    }
 }
 
 export default Camera;
