@@ -1,6 +1,9 @@
 import UrlHelper from './UrlHelper';
 
-import Cube from './Cube';
+// import Cube from './Cube';
+import {
+    Parrot
+} from './collection';
 
 class ObjectsCollection {
     constructor() {
@@ -10,17 +13,21 @@ class ObjectsCollection {
         };
 
         this.objects = [
-            new Cube({
+            // new Cube({
+            //     ...commonObjectParams
+            // }),
+            new Parrot({
                 ...commonObjectParams
             })
         ];
     }
-    animate() {
-        this.objects.forEach(object => object.animate());
+
+    animate(delta) {
+        this.objects.forEach(object => object.animate(delta));
     }
 
     getMeshCollection() {
-        return this.objects.map(object => object.getMesh());
+        return Promise.all(this.objects.map(object => object.getMesh()));
     }
 }
 

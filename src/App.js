@@ -1,3 +1,7 @@
+import {
+    Clock
+} from 'three';
+
 import Stats from 'stats.js';
 
 import Camera from './Camera';
@@ -12,6 +16,8 @@ const getContainerSize = () => ({
 class App {
     constructor() {
         const containerSize = getContainerSize();
+
+        this.clock = new Clock();
 
         this.camera = new Camera({
             ratio: containerSize.width / containerSize.height
@@ -39,7 +45,9 @@ class App {
     renderFrame() {
         this.stats.begin();
 
-        this.scene.animate();
+        this.scene.animate(
+            this.clock.getDelta()
+        );
         this.renderer.render({
             scene: this.scene,
             camera: this.camera

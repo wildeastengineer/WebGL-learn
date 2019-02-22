@@ -11,12 +11,12 @@ class Camera {
         }
     ) {
         this.camera = new PerspectiveCamera(
-            75,
+            35,
             ratio,
-            0.1,
+            1,
             1000
         );
-        this.camera.position.z = 5;
+        this.camera.position.set(-50, 50, 150);
 
         this.controls = new OrbitControls(this.camera);
     }

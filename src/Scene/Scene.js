@@ -13,15 +13,17 @@ class CustomScene {
 
         this.obects = new Objects();
         this.obects.getMeshCollection()
-            .forEach(mesh => this.scene.add(mesh));
+            .then((meshCollection) => {
+                meshCollection.forEach(mesh => this.scene.add(mesh));
+            });
 
         this.lights = new Lights();
         this.lights.getInstanceCollection()
             .forEach(light => this.scene.add(light));
     }
 
-    animate() {
-        this.obects.animate();
+    animate(delta) {
+        this.obects.animate(delta);
     }
 
     getThreeInstance() {
