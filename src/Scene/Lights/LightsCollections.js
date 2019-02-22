@@ -1,15 +1,21 @@
 import {
+    AmbientLight,
     DirectionalLight
 } from 'three';
 
 class LightsCollections {
     constructor() {
-        const light = new DirectionalLight(0xffffff, 5.0);
+        const ambientLight = new AmbientLight(0xffffff, 1);
+        const frontLight = new DirectionalLight(0xffffff, 1);
+        const backLight = new DirectionalLight(0xffffff, 1);
 
-        light.position.set(5, 0, 5);
+        frontLight.position.set(10, 10, 10);
+        backLight.position.set(-10, 10, -10);
 
         this.lights = [
-            light
+            ambientLight,
+            backLight,
+            frontLight
         ];
     }
 

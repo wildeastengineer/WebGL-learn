@@ -1,3 +1,5 @@
+import Stats from 'stats.js';
+
 import Camera from './Camera';
 import Renderer from './Renderer';
 import Scene from './Scene';
@@ -22,7 +24,11 @@ class App {
             devicePixelRatio: window.devicePixelRatio
         });
 
+        this.stats = new Stats();
+        this.stats.showPanel(0);
+
         document.body.appendChild(this.renderer.getDomElement());
+        document.body.appendChild(this.stats.dom);
 
         this.renderFrame = this.renderFrame.bind(this);
         this.renderer.setAnimationLoop(this.renderFrame);
@@ -31,11 +37,15 @@ class App {
     }
 
     renderFrame() {
+        this.stats.begin();
+
         this.scene.animate();
         this.renderer.render({
             scene: this.scene,
             camera: this.camera
         });
+
+        this.stats.end();
     }
 
     subscribeOnEvents() {

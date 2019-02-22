@@ -1,11 +1,18 @@
 import {
     BoxBufferGeometry,
     Mesh,
-    MeshStandardMaterial
+    MeshStandardMaterial,
+    TextureLoader
 } from 'three';
 
 class Cube {
-    constructor() {
+    constructor(
+        {
+            urlHelper
+        }
+    ) {
+        this.urlHelper = urlHelper;
+
         const mesh = this.getMesh();
 
         mesh.rotation.x = Math.PI / 4;
@@ -47,9 +54,22 @@ class Cube {
             return this.material;
         }
 
-        this.material = new MeshStandardMaterial();
+        this.material = new MeshStandardMaterial({
+            flatShading: false,
+            map: this.getTexture()
+        });
 
         return this.material;
+    }
+
+    getTexture() {
+        const textureLoader = new TextureLoader();
+        const textureUrl = this.urlHelper.getTextureUrl('uv_test_bw_1024.png');
+        const texture = textureLoader.load(textureUrl);
+
+        texture.anisotropy = 16;
+
+        return texture;
     }
 }
 
