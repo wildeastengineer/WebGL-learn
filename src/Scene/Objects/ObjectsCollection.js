@@ -1,8 +1,8 @@
 import UrlHelper from './UrlHelper';
 
-// import Cube from './Cube';
 import {
-    Parrot
+    Bottle,
+    Cube
 } from './collection';
 
 class ObjectsCollection {
@@ -13,10 +13,10 @@ class ObjectsCollection {
         };
 
         this.objects = [
-            // new Cube({
-            //     ...commonObjectParams
-            // }),
-            new Parrot({
+            new Cube({
+                ...commonObjectParams
+            }),
+            new Bottle({
                 ...commonObjectParams
             })
         ];

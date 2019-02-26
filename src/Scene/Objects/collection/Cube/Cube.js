@@ -5,30 +5,15 @@ import {
     TextureLoader
 } from 'three';
 
-class Parrot {
-    constructor(
-        {
-            urlHelper
-        }
-    ) {
-        this.urlHelper = urlHelper;
+import SceneObject from '../SceneObject';
 
-        const mesh = this.getMesh();
-
-        mesh.rotation.x = Math.PI / 4;
-        mesh.rotation.y = Math.PI / 4;
+class Cube extends SceneObject {
+    constructor(params) {
+        super(params);
     }
-
-    animate() {
-        const mesh = this.getMesh();
-
-        mesh.rotation.x += 0.001;
-        mesh.rotation.y += 0.003;
-    }
-
     getMesh() {
         if (this.mesh) {
-            return this.mesh;
+            return Promise.resolve(this.mesh);
         }
 
         this.mesh = new Mesh(
@@ -36,7 +21,7 @@ class Parrot {
             this.getMaterial()
         );
 
-        return this.mesh;
+        return Promise.resolve(this.mesh);
     }
 
     getGeometry() {
@@ -44,7 +29,9 @@ class Parrot {
             return this.geometry;
         }
 
-        this.geometry = new BoxBufferGeometry(2, 2, 2);
+        const size = 150;
+
+        this.geometry = new BoxBufferGeometry(size, size, size);
 
         return this.geometry;
     }
@@ -73,4 +60,4 @@ class Parrot {
     }
 }
 
-export default Parrot;
+export default Cube;

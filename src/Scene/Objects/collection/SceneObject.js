@@ -1,5 +1,7 @@
 import { AnimationMixer } from 'three';
-import { GLTFLoader } from '../loaders';
+import {
+    GLTFLoader
+} from '../loaders';
 
 class SceneObject {
     constructor(
@@ -38,20 +40,14 @@ class SceneObject {
             modelLoader.load(
                 modelUrl,
                 this.loadGLTFModelFinished.bind(this, resolve),
-                this.loadGLTFModelProgressed,
+                this.loadGLTFModelProgressed.bind(this),
                 this.loadGLTFModelFailed.bind(this, reject)
             )
         });
     }
 
     loadGLTFModelFinished(resolve, gltf) {
-        this.mesh = gltf.scene.children[0];
-
-        const animation = gltf.animations[0];
-
-        this.createAnimation(animation);
-
-        resolve(this.mesh);
+        resolve(gltf);
     }
 
     loadGLTFModelProgressed(progress) {

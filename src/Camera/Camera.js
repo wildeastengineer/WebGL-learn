@@ -16,7 +16,7 @@ class Camera {
             1,
             1000
         );
-        this.camera.position.set(-50, 50, 150);
+        this.camera.position.set(0, 200, 500);
 
         this.controls = new OrbitControls(this.camera);
     }
