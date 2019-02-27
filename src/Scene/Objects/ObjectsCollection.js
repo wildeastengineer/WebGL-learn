@@ -2,7 +2,8 @@ import UrlHelper from './UrlHelper';
 
 import {
     Bottle,
-    Cube
+    Cube,
+    Ground
 } from './collection';
 
 class ObjectsCollection {
@@ -13,9 +14,12 @@ class ObjectsCollection {
         };
 
         this.objects = [
-            new Cube({
+            new Ground({
                 ...commonObjectParams
             }),
+            // new Cube({
+            //     ...commonObjectParams
+            // }),
             new Bottle({
                 ...commonObjectParams
             })

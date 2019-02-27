@@ -1,5 +1,6 @@
 import {
     Color,
+    Fog,
     Scene
 } from 'three';
 
@@ -8,8 +9,11 @@ import Objects from './Objects';
 
 class CustomScene {
     constructor() {
+        const color = new Color('#e8e8e8');
+
         this.scene = new Scene();
-        this.scene.background = new Color('skyblue');
+        this.scene.background = color;
+        this.scene.fog = new Fog(color, 150, 200);
 
         this.obects = new Objects();
         this.obects.getMeshCollection()

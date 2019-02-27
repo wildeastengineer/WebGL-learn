@@ -1,4 +1,5 @@
 import {
+    PCFSoftShadowMap,
     WebGLRenderer
 } from 'three';
 
@@ -18,6 +19,9 @@ class Renderer {
             height
         );
         this.renderer.setPixelRatio(devicePixelRatio);
+
+        this.renderer.shadowMap.enabled = true;
+        this.renderer.shadowMap.type = PCFSoftShadowMap;
     }
 
     render(

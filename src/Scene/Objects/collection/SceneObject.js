@@ -1,4 +1,4 @@
-import { AnimationMixer } from 'three';
+import { AnimationMixer, Box3 } from 'three';
 import {
     GLTFLoader
 } from '../loaders';
@@ -16,6 +16,13 @@ class SceneObject {
         this.mixer = null;
 
         this.createAnimation = this.createAnimation.bind(this);
+    }
+
+    moveOnGround() {
+        const boundingBox = new Box3().setFromObject(this.mesh);
+        const height = boundingBox.max.y - boundingBox.min.y;
+
+        this.mesh.position.y = height / 2;
     }
 
     animate(delta) {

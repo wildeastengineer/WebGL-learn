@@ -10,7 +10,10 @@ import SceneObject from '../SceneObject';
 class Cube extends SceneObject {
     constructor(params) {
         super(params);
+
+        this.size = 30;
     }
+
     getMesh() {
         if (this.mesh) {
             return Promise.resolve(this.mesh);
@@ -21,6 +24,11 @@ class Cube extends SceneObject {
             this.getMaterial()
         );
 
+        this.mesh.castShadow = true;
+        this.mesh.receiveShadow = false;
+
+        this.moveOnGround();
+
         return Promise.resolve(this.mesh);
     }
 
@@ -29,9 +37,7 @@ class Cube extends SceneObject {
             return this.geometry;
         }
 
-        const size = 150;
-
-        this.geometry = new BoxBufferGeometry(size, size, size);
+        this.geometry = new BoxBufferGeometry(this.size, this.size, this.size);
 
         return this.geometry;
     }

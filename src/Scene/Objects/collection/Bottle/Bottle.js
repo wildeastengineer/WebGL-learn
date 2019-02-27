@@ -1,4 +1,5 @@
 import {
+    Box3,
     Group,
     Mesh,
     MeshStandardMaterial
@@ -22,12 +23,23 @@ class Bottle extends SceneObject {
         ]).then(([geometry, material]) => {
             this.mesh = new Group();
 
-            this.mesh.add(new Mesh(geometry.bottle, material.bottle));
-            this.mesh.add(new Mesh(geometry.neck, material.neck));
-            this.mesh.add(new Mesh(geometry.labelFront, material.labelFront));
-            this.mesh.add(new Mesh(geometry.labelBack, material.labelBack));
+            this.mesh.add(getMesh(geometry.bottle, material.bottle));
+            this.mesh.add(getMesh(geometry.neck, material.neck));
+            this.mesh.add(getMesh(geometry.labelFront, material.labelFront));
+            this.mesh.add(getMesh(geometry.labelBack, material.labelBack));
+
+            this.moveOnGround();
 
             return Promise.resolve(this.mesh);
+
+            function getMesh(geometry, material) {
+                const mesh = new Mesh(geometry, material);
+
+                mesh.castShadow = true;
+                mesh.receiveShadow = false;
+
+                return mesh;
+            }
         });
     }
 
@@ -41,13 +53,20 @@ class Bottle extends SceneObject {
         )
             .then((gltf) => {
                 this.geometry = {
-                    bottle: gltf.scene.getChildByName('Material_0').geometry,
-                    neck: gltf.scene.getChildByName('Material_2').geometry,
-                    labelFront: gltf.scene.getChildByName('printarea-1_3').geometry,
-                    labelBack: gltf.scene.getChildByName('printarea-2_5').geometry
+                    bottle: getGeometry(gltf, 'Material_0'),
+                    neck: getGeometry(gltf, 'Material_2'),
+                    labelFront: getGeometry(gltf, 'printarea-1_3'),
+                    labelBack: getGeometry(gltf, 'printarea-2_5')
                 };
 
                 return Promise.resolve(this.geometry);
+
+                function getGeometry(gltf, meshName) {
+                    const geometry = gltf.scene.getChildByName(meshName).geometry;
+                    const scale = 0.15;
+
+                    return geometry.scale(scale, scale, scale);
+                }
             });
     }
 

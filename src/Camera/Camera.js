@@ -16,9 +16,14 @@ class Camera {
             1,
             1000
         );
-        this.camera.position.set(0, 200, 500);
+
+        const cameraTargetHeight = 20;
 
         this.controls = new OrbitControls(this.camera);
+        this.controls.target.y = cameraTargetHeight;
+
+        this.camera.position.set(0, 70, 100);
+        this.camera.lookAt(0, cameraTargetHeight, 0);
     }
 
     getThreeInstance() {
