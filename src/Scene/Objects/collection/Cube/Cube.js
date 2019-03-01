@@ -1,8 +1,6 @@
 import {
     BoxBufferGeometry,
-    Mesh,
-    MeshStandardMaterial,
-    TextureLoader
+    Mesh
 } from 'three';
 
 import SceneObject from '../SceneObject';
@@ -12,6 +10,13 @@ class Cube extends SceneObject {
         super(params);
 
         this.size = 30;
+        this.initialized = false;
+    }
+
+    animate() {
+        if (this.initialized) {
+            this.material.animate();
+        }
     }
 
     getMesh() {
@@ -19,50 +24,55 @@ class Cube extends SceneObject {
             return Promise.resolve(this.mesh);
         }
 
-        this.mesh = new Mesh(
-            this.getGeometry(),
-            this.getMaterial()
-        );
+        return this.getGeometry()
+            .then((geometry) => this.getMaterial(geometry)
+                .then(material => ({
+                    geometry,
+                    material
+                })))
+            .then(({ geometry, material }) => {
+                this.mesh = new Mesh(
+                    geometry,
+                    material
+                );
 
-        this.mesh.castShadow = true;
-        this.mesh.receiveShadow = false;
+                this.mesh.castShadow = true;
+                this.mesh.receiveShadow = false;
 
-        this.moveOnGround();
+                this.moveOnGround();
+                this.initialized = true;
 
-        return Promise.resolve(this.mesh);
+                return this.mesh;
+            });
     }
 
     getGeometry() {
         if (this.geometry) {
-            return this.geometry;
+            return Promise.resolve(this.geometry);
         }
 
-        this.geometry = new BoxBufferGeometry(this.size, this.size, this.size);
+        const faceDensity = 16;
 
-        return this.geometry;
+        this.geometry = new BoxBufferGeometry(
+            this.size, this.size, this.size,
+            faceDensity, faceDensity, faceDensity
+        );
+
+        return Promise.resolve(this.geometry);
     }
 
-    getMaterial() {
+    getMaterial(geometry) {
         if (this.material) {
-            return this.material;
+            return this.material.getThreeInstance();
         }
 
-        this.material = new MeshStandardMaterial({
-            flatShading: false,
-            map: this.getTexture()
+        return super.getMaterial('TrainingMaterial', {
+            geometry
+        }).then((material) => {
+            this.material = material;
+
+            return material.getThreeInstance();
         });
-
-        return this.material;
-    }
-
-    getTexture() {
-        const textureLoader = new TextureLoader();
-        const textureUrl = this.urlHelper.getTextureUrl('uv_test_bw_1024.png');
-        const texture = textureLoader.load(textureUrl);
-
-        texture.anisotropy = 16;
-
-        return texture;
     }
 }
 

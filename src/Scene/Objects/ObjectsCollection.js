@@ -1,4 +1,5 @@
 import UrlHelper from './UrlHelper';
+import getMaterial from './materials';
 
 import {
     Bottle,
@@ -10,19 +11,20 @@ class ObjectsCollection {
     constructor() {
         const urlHelper = new UrlHelper();
         const commonObjectParams = {
-            urlHelper
+            urlHelper,
+            getMaterial
         };
 
         this.objects = [
             new Ground({
                 ...commonObjectParams
             }),
-            // new Cube({
-            //     ...commonObjectParams
-            // }),
-            new Bottle({
+            new Cube({
                 ...commonObjectParams
-            })
+            }),
+            // new Bottle({
+            //     ...commonObjectParams
+            // })
         ];
     }
 

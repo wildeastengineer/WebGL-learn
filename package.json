@@ -24,6 +24,7 @@
     },
     "homepage": "https://github.com/wildeastengineer/WebGL-learn#readme",
     "dependencies": {
+        "raw-loader": "^1.0.0",
         "three": "^0.101.1",
         "zlib": "^1.0.5"
     },

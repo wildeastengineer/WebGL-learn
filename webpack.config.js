@@ -13,5 +13,13 @@ module.exports = {
         index: 'index.html',
         open: true,
         port: 9000
+    },
+    module: {
+        rules: [
+            {
+                test: /\.glsl/,
+                use: 'raw-loader'
+            }
+        ]
     }
 };

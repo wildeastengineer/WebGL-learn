@@ -6,9 +6,11 @@ import {
 class SceneObject {
     constructor(
         {
+            getMaterial,
             urlHelper
         }
     ) {
+        this.getMaterialFabric = getMaterial;
         this.urlHelper = urlHelper;
         this.logger = console;
 
@@ -16,6 +18,14 @@ class SceneObject {
         this.mixer = null;
 
         this.createAnimation = this.createAnimation.bind(this);
+    }
+
+    getMaterial(materialName, params = {}) {
+        return this.getMaterialFabric(materialName, {
+            logger: this.logger,
+            urlHelper: this.urlHelper,
+            ...params
+        });
     }
 
     moveOnGround() {
