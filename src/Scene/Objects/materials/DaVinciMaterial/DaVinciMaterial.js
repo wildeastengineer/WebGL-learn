@@ -1,5 +1,4 @@
 import {
-    BufferAttribute,
     ShaderMaterial
 } from 'three';
 
@@ -23,8 +22,6 @@ class DaVinciMaterial extends CustomMaterial {
             vertexShader,
             fragmentShader
         });
-
-        // ---
     }
 
     animate() {

@@ -1,20 +1,15 @@
-attribute float vertexDisplacement;
-uniform float delta;
-varying float vOpacity;
-varying vec3 vUv;
+//attribute float vertexDisplacement;
+//uniform float delta;
+//varying float vOpacity;
+varying vec2 vUv;
+varying vec3 vecPos;
+varying vec3 vecNormal;
 
 void  main()
 {
-    vUv = position;
-    vOpacity = vertexDisplacement;
+    vUv = uv;
+    vecPos = (modelViewMatrix * vec4(position, 1.0)).xyz;
+    vecNormal = (modelViewMatrix * vec4(normal, 0.0)).xyz;
 
-    vec3 p = position;
-
-    p.x += sin(vertexDisplacement) * 1.0;
-    p.y += cos(vertexDisplacement) * 1.0;
-    p.z += cos(vertexDisplacement) * 1.0;
-
-    vec4 modelViewPosition = modelViewMatrix * vec4(p, 1.0);
-
-    gl_Position = projectionMatrix * modelViewPosition;
+    gl_Position = projectionMatrix * vec4(vecPos, 1.0);
 }

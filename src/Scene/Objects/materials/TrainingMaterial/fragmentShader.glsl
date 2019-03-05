@@ -1,12 +1,9 @@
-uniform float delta;
-varying float vOpacity;
-varying vec3 vUv;
+varying vec2 vUv;
+varying vec3 vecPos;
+varying vec3 vecNormal;
 
-void  main()
-{
-    float r = 1.0 + cos(vUv.x * delta);
-    float g = 0.5 + sin(vUv.x * delta);
-    float b = 0.0;
+uniform sampler2D map;
 
-    gl_FragColor = vec4(r, g, b, vOpacity);
+void  main() {
+    gl_FragColor = texture2D(map, vUv);
 }
